@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+
+        <title>Console</title>
+
+        <!-- LOAD WMKS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vmware-wmks@1.0.0/css/css/wmks-all.css">
+
+        <!-- LOAD JQUERY -->
+        <script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.8.16/jquery-ui.min.js"></script>
+
+        <!-- LOAD WMKS -->
+        <script src="https://cdn.jsdelivr.net/npm/vmware-wmks@1.0.0/wmks.min.js"></script>
+    </head>
+    <body>
+        <style>
+            body {
+                margin:0;
+            }
+
+            #console {
+                position:absolute;
+                width:100%;
+                height:100%;
+            }
+
+            #message {
+                padding:20px;
+            }
+        </style>
+
+        <div id="console">
+            <div id="message"></div>
+        </div>
+
+        <script>
+            jQuery(document).ready(function() {
+
+                wmks = WMKS.createWMKS('console');
+
+                // CONNECTION FAILED
+                wmks.register('error', function() {
+
+                    jQuery('#message').text('Failed');
+                });
+
+                params = new URLSearchParams(window.location.search);
+
+                // CREATE ADDRESS
+                address = 'wss://' + params.get('host') + ':' + params.get('port') + '/ticket/' + params.get('ticket');
+
+                wmks.connect(address);
+            });
+        </script>
+    </body>
+</html>
