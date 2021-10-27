@@ -47,6 +47,12 @@
                     jQuery('#message').text('Failed');
                 });
 
+                // SEND CTRL ALT DELETE
+                wmks.register('connectionstatechange', function() {
+
+                    wmks.sendCAD();
+                });
+
                 params = new URLSearchParams(window.location.search);
 
                 // CREATE ADDRESS
